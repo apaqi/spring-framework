@@ -1,0 +1,97 @@
+'https://blog.csdn.net/chunqiuwei/article/details/7533011
+@startuml
+
+
+package Resource {
+
+  interface InputStreamSource {
+
+  }
+  interface Resource {
+
+  }
+
+  class EncodedResource {
+    + getPathWithinContext()
+  }
+
+  interface ContextResource {
+    + getPathWithinContext()
+  }
+
+  interface WritableResource {
+
+  }
+}
+
+package AbstractResource {
+    abstract class AbstractResource {
+     + getPathWithinContext()
+    }
+    abstract class AbstractFileResolvingResource {
+        + getPathWithinContext()
+    }
+
+    class BeanDefinitionResource{
+
+    }
+
+    class FileSystemResource{
+
+    }
+
+    class InputStreamResource{
+
+    }
+   class PathResource{
+
+    }
+   class ByteArrayResource{
+
+    }
+
+}
+
+class UrlResource {
+
+}
+
+class ClassPathResource {
+ + getPathWithinContext()
+}
+
+class ServletContextResource {
+}
+
+class ClassPathContextResource {
+}
+
+class ClassRelativeContextResource {
+}
+
+
+Resource --|>  InputStreamSource
+EncodedResource ..|> InputStreamSource
+
+ContextResource --|> Resource
+WritableResource --|> Resource
+AbstractResource ..|> Resource
+
+AbstractFileResolvingResource --|> AbstractResource
+BeanDefinitionResource --|>  AbstractResource
+FileSystemResource --|>  AbstractResource
+InputStreamResource --|> AbstractResource
+PathResource --|> AbstractResource
+ByteArrayResource --|> AbstractResource
+
+
+ClassPathResource --|> AbstractFileResolvingResource
+ServletContextResource --|> AbstractFileResolvingResource
+UrlResource--|> AbstractFileResolvingResource
+
+ClassPathContextResource --|>  ClassPathResource
+ClassPathContextResource ..|>  ContextResource
+ClassRelativeContextResource --|>  ClassPathResource
+ClassRelativeContextResource ..|>  ContextResource
+
+@enduml
